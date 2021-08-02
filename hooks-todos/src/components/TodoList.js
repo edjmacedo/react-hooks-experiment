@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import TodosContext from '../context';
 
 export default function TodoList() {
-    const { state } = useContext(TodosContext);
+    const { state, dispatch } = useContext(TodosContext);
     const title = state.todos.length > 0 ? `${state.todos.length} Todos` : 'Nothing to do';
 
     return (
@@ -14,7 +14,14 @@ export default function TodoList() {
                         key={todo.id}
                         className="flex items-center bg-blue-100 border-black border-dashed border-2 my-2 py-4"
                     >
-                        <span className="flex-1 ml-12 cursor-pointer">{todo.text}</span>
+                        <span
+                            onDoubleClick={() => dispatch({ type: 'TOGGLE_TODO', payload: todo })}
+                            className={`flex-1 ml-12 cursor-pointer ${
+                                todo.complete && 'line-through text-grey-darkest'
+                            }`}
+                        >
+                            {todo.text}
+                        </span>
                         <button>
                             <img
                                 src="https://as2.ftcdn.net/v2/jpg/01/97/22/97/1000_F_197229786_vWEFpeQEOtIcjvtKVRAyPPP91ANs43uq.jpg"
