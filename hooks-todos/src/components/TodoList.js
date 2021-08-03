@@ -29,7 +29,7 @@ export default function TodoList() {
                                 className="h-6"
                             />
                         </button>
-                        <button>
+                        <button onClick={() => dispatch({ type: 'REMOVE_TODO', payload: todo })}>
                             <img
                                 src="https://as2.ftcdn.net/v2/jpg/03/46/38/39/1000_F_346383913_JQecl2DhpHy2YakDz1t3h0Tk3Ov8hikq.jpg"
                                 alt="Delete Icon"
