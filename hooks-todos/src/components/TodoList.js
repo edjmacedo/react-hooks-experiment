@@ -22,7 +22,7 @@ export default function TodoList() {
                         >
                             {todo.text}
                         </span>
-                        <button>
+                        <button onClick={() => dispatch({ type: 'SET_CURRENT_TODO', payload: todo })}>
                             <img
                                 src="https://as2.ftcdn.net/v2/jpg/01/97/22/97/1000_F_197229786_vWEFpeQEOtIcjvtKVRAyPPP91ANs43uq.jpg"
                                 alt="Edit Icon"
