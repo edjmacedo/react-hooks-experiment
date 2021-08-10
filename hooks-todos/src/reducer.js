@@ -1,17 +1,12 @@
-import { v4 as uuidv4 } from 'uuid';
-
 export default function reducer(state, action) {
     switch (action.type) {
-        case 'ADD_TODO':
-            if (!action.payload || state.todos.findIndex((t) => t.text === action.payload)) {
-                return state;
-            }
-            const newTodo = {
-                id: uuidv4(),
-                text: action.payload,
-                complete: false,
+        case 'GET_TODOS':
+            return {
+                ...state,
+                todos: action.payload,
             };
-            const addedTodo = [...state.todos, newTodo];
+        case 'ADD_TODO':
+            const addedTodo = [...state.todos, action.payload];
             return {
                 ...state,
                 todos: addedTodo,
@@ -22,9 +17,7 @@ export default function reducer(state, action) {
                 currentTodo: action.payload,
             };
         case 'TOGGLE_TODO':
-            const toggledTodos = state.todos.map((t) =>
-                t.id === action.payload.id ? { ...action.payload, complete: !action.payload.complete } : t,
-            );
+            const toggledTodos = state.todos.map((t) => (t.id === action.payload.id ? action.payload : t));
             return {
                 ...state,
                 todos: toggledTodos,
@@ -38,10 +31,7 @@ export default function reducer(state, action) {
                 todos: filteredTodos,
             };
         case 'UPDATE_TODO':
-            if (!action.payload || state.todos.findIndex((t) => t.text === action.payload)) {
-                return state;
-            }
-            const updatedTodo = { ...state.currentTodo, text: action.payload };
+            const updatedTodo = { ...action.payload };
             const updatedTodoIndex = state.todos.findIndex((t) => t.id === state.currentTodo.id);
             const updatedTodos = [
                 ...state.todos.slice(0, updatedTodoIndex),
